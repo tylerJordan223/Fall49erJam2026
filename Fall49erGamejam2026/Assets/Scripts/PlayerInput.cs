@@ -118,7 +118,7 @@ namespace P_Input
                     ""name"": ""Attack"",
                     ""type"": ""Button"",
                     ""id"": ""6c2ab1b8-8984-453a-af3d-a3c78ae1679a"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false,
@@ -1098,6 +1098,79 @@ namespace P_Input
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Overworld"",
+            ""id"": ""bded7335-8070-495a-b261-78b81929a502"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""a31a794f-1199-4a2a-966b-a32a96571a46"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true,
+                    ""priority"": 0
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""5e6ab807-d110-401b-98c3-f4683981760d"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""38ea5c03-afa8-4b0b-934a-256ec859ed53"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""db3e228f-2bb2-41e1-a3a9-71084bc1a132"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""5e891d4b-2495-4450-9e4f-69d38b983996"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""df37eb90-2b2a-470b-a032-b6829cbeb3cb"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -1186,12 +1259,16 @@ namespace P_Input
             m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
             m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
             m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+            // Overworld
+            m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
+            m_Overworld_Movement = m_Overworld.FindAction("Movement", throwIfNotFound: true);
         }
 
         ~@PlayerInput()
         {
             UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInput.Player.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInput.UI.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Overworld.enabled, "This will cause a leak and performance issues, PlayerInput.Overworld.Disable() has not been called.");
         }
 
         /// <summary>
@@ -1642,6 +1719,102 @@ namespace P_Input
         /// Provides a new <see cref="UIActions" /> instance referencing this action map.
         /// </summary>
         public UIActions @UI => new UIActions(this);
+
+        // Overworld
+        private readonly InputActionMap m_Overworld;
+        private List<IOverworldActions> m_OverworldActionsCallbackInterfaces = new List<IOverworldActions>();
+        private readonly InputAction m_Overworld_Movement;
+        /// <summary>
+        /// Provides access to input actions defined in input action map "Overworld".
+        /// </summary>
+        public struct OverworldActions
+        {
+            private @PlayerInput m_Wrapper;
+
+            /// <summary>
+            /// Construct a new instance of the input action map wrapper class.
+            /// </summary>
+            public OverworldActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            /// <summary>
+            /// Provides access to the underlying input action "Overworld/Movement".
+            /// </summary>
+            public InputAction @Movement => m_Wrapper.m_Overworld_Movement;
+            /// <summary>
+            /// Provides access to the underlying input action map instance.
+            /// </summary>
+            public InputActionMap Get() { return m_Wrapper.m_Overworld; }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+            public void Enable() { Get().Enable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+            public void Disable() { Get().Disable(); }
+            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+            public bool enabled => Get().enabled;
+            /// <summary>
+            /// Implicitly converts an <see ref="OverworldActions" /> to an <see ref="InputActionMap" /> instance.
+            /// </summary>
+            public static implicit operator InputActionMap(OverworldActions set) { return set.Get(); }
+            /// <summary>
+            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <param name="instance">Callback instance.</param>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+            /// </remarks>
+            /// <seealso cref="OverworldActions" />
+            public void AddCallbacks(IOverworldActions instance)
+            {
+                if (instance == null || m_Wrapper.m_OverworldActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_OverworldActionsCallbackInterfaces.Add(instance);
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
+            }
+
+            /// <summary>
+            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+            /// </summary>
+            /// <remarks>
+            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+            /// </remarks>
+            /// <seealso cref="OverworldActions" />
+            private void UnregisterCallbacks(IOverworldActions instance)
+            {
+                @Movement.started -= instance.OnMovement;
+                @Movement.performed -= instance.OnMovement;
+                @Movement.canceled -= instance.OnMovement;
+            }
+
+            /// <summary>
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="OverworldActions.UnregisterCallbacks(IOverworldActions)" />.
+            /// </summary>
+            /// <seealso cref="OverworldActions.UnregisterCallbacks(IOverworldActions)" />
+            public void RemoveCallbacks(IOverworldActions instance)
+            {
+                if (m_Wrapper.m_OverworldActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            /// <summary>
+            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+            /// </summary>
+            /// <remarks>
+            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+            /// </remarks>
+            /// <seealso cref="OverworldActions.AddCallbacks(IOverworldActions)" />
+            /// <seealso cref="OverworldActions.RemoveCallbacks(IOverworldActions)" />
+            /// <seealso cref="OverworldActions.UnregisterCallbacks(IOverworldActions)" />
+            public void SetCallbacks(IOverworldActions instance)
+            {
+                foreach (var item in m_Wrapper.m_OverworldActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_OverworldActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        /// <summary>
+        /// Provides a new <see cref="OverworldActions" /> instance referencing this action map.
+        /// </summary>
+        public OverworldActions @Overworld => new OverworldActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
@@ -1855,6 +2028,21 @@ namespace P_Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+        }
+        /// <summary>
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Overworld" which allows adding and removing callbacks.
+        /// </summary>
+        /// <seealso cref="OverworldActions.AddCallbacks(IOverworldActions)" />
+        /// <seealso cref="OverworldActions.RemoveCallbacks(IOverworldActions)" />
+        public interface IOverworldActions
+        {
+            /// <summary>
+            /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnMovement(InputAction.CallbackContext context);
         }
     }
 }
