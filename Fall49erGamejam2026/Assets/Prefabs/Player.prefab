@@ -173,7 +173,7 @@ MonoBehaviour:
   pm: {fileID: 456462992191824354}
   grounded: 0
   stepping: 0
-  can_control: 0
+  can_control: 1
   speed: 0
   active_town: {fileID: 0}
 --- !u!114 &1001300974284964024

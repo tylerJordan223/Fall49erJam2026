@@ -24,6 +24,7 @@ public class CameraController : MonoBehaviour
 
     //global camera fields
     [SerializeField] Camera mainCamera;
+    public CinemachineCamera active_cam;
     private CinemachineBrain brain;
 
     //global canvases
@@ -37,14 +38,21 @@ public class CameraController : MonoBehaviour
     }
 
     //function to handle a camera transition over a certain amount of time
-    public void CameraTransition(CinemachineCamera cam1, CinemachineCamera cam2, float transition_time = 0f)
+    public void CameraTransition(CinemachineCamera new_cam, float transition_time = 0f)
     {
+        Debug.Log(new_cam);
+
         //first set the blend time
         brain.DefaultBlend.Time = transition_time;
 
         //then enable second camera and disable first one
-        cam2.enabled = true;
-        cam1.enabled = false;
+        new_cam.Priority = 1;
+        active_cam.Priority = 0;
+
+        //set this as the new active cam
+        active_cam = new_cam;
+
+        Debug.Log("RAN TRANSITION");
     }
 
     //functions to handle the fade canvas
