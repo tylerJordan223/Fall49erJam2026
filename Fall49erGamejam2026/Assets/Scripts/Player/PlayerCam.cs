@@ -213,7 +213,7 @@ public class PlayerCam : MonoBehaviour
     }
 
     //functions to transition between player and town
-    public void TransitionToTown(InputAction.CallbackContext context)
+    public void TownTransition(InputAction.CallbackContext context)
     {
         if (context.performed && PlayerInfo.instance.active_town != null)
         {
@@ -221,9 +221,9 @@ public class PlayerCam : MonoBehaviour
         }
     }
 
-    public void TransitionToPlayer(InputAction.CallbackContext context)
+    public void PlayerTransition()
     {
-        if (context.performed && PlayerInfo.instance.active_town != null)
+        if (PlayerInfo.instance.active_town != null)
         {
             StartCoroutine(TransitionToPlayer());
         }
@@ -257,6 +257,9 @@ public class PlayerCam : MonoBehaviour
             PlayerInfo.instance.active_town.cam.transform.position = pos;
             yield return new WaitForEndOfFrame();
         }
+
+        //swap to town area
+        WorldScript.instance.ActivateTown();
     }
 
     private IEnumerator TransitionToPlayer()
