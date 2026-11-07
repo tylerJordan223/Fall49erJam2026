@@ -22,6 +22,14 @@ public class PlayerCam : MonoBehaviour
     public float bob_speed;
     public float height_offset = 0f;
     float height_base;
+    float width_base;
+
+    //camera shake values
+    [Header("Shake values")]
+    public float max_shake_y;
+    private float shake_y;
+    public float max_shake_x;
+    private float shake_x;
 
     #region input
     //controls
@@ -51,6 +59,7 @@ public class PlayerCam : MonoBehaviour
     private void Start()
     { 
         height_base = PlayerInfo.instance.p_cam_obj.transform.localPosition.y;
+        width_base = PlayerInfo.instance.p_cam_obj.transform.localPosition.x;
     }
 
     private void Update()
@@ -112,7 +121,8 @@ public class PlayerCam : MonoBehaviour
 
         //apply the movement of camera
         Vector3 t = PlayerInfo.instance.p_cam_obj.transform.localPosition;
-        t.y = height_base + height_offset;
+        t.y = height_base + height_offset + shake_y;
+        t.x = width_base + shake_x;
         PlayerInfo.instance.p_cam_obj.transform.localPosition = t;
     }
 
@@ -125,6 +135,9 @@ public class PlayerCam : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
+        //shake camera
+        StartCoroutine(CameraShake(0.75f));
+
         //step two is to go back to regular height
         while (height_offset < 0f)
         {
@@ -136,5 +149,32 @@ public class PlayerCam : MonoBehaviour
         height_offset = 0f;
         PlayerInfo.instance.speed = 0f;
         PlayerInfo.instance.stepping = false;
+    }
+
+    private IEnumerator CameraShake(float time)
+    {
+        //get the necessary variables
+        float timer = 0f;
+        float sx = max_shake_x;
+        float sy = max_shake_y;
+        float shrink_factor = sx / time;
+
+        //shake loop
+        while(timer < time)
+        {
+            //do the shake
+            shake_x = Random.Range(-sx, sx);
+            shake_y = Random.Range(-sy, sy);
+            //increase timer
+            timer += Time.deltaTime;
+            //shrink max shake
+            sx = max_shake_x * (1 - (timer / time));
+            sy = max_shake_y * (1 - (timer / time));
+            yield return new WaitForEndOfFrame();
+        }
+
+        //stop shake
+        shake_x = 0f;
+        shake_y = 0f;
     }
 }
