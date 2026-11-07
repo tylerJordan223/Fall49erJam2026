@@ -190,6 +190,8 @@ MonoBehaviour:
   bob_threshold: 1
   bob_speed: 1
   height_offset: 0
+  max_shake_y: 0.25
+  max_shake_x: 0.25
 --- !u!114 &456462992191824354
 MonoBehaviour:
   m_ObjectHideFlags: 0
