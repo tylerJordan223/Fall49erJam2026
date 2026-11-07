@@ -57,13 +57,16 @@ public class PlayerCam : MonoBehaviour
     #endregion input
 
     private void Start()
-    { 
+    {
         height_base = PlayerInfo.instance.p_cam_obj.transform.localPosition.y;
         width_base = PlayerInfo.instance.p_cam_obj.transform.localPosition.x;
     }
 
     private void Update()
     {
+        //cancel out of not allowed to control
+        if (!PlayerInfo.instance.can_control) return;
+
         //actually update the camera rotation//
 
         //retrieve mouse movement
@@ -82,24 +85,51 @@ public class PlayerCam : MonoBehaviour
         //perform the rotation, only rotates camera up/down
         transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
         PlayerInfo.instance.p_cam_obj.transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        
+
+        //UPDATING THE ACTIVE TOWN//
+        RaycastHit hit;
+        Debug.DrawRay(PlayerInfo.instance.p_cam_obj.transform.position, PlayerInfo.instance.p_cam_obj.transform.forward, Color.purple);
+        if (Physics.Raycast(PlayerInfo.instance.p_cam_obj.transform.position, PlayerInfo.instance.p_cam_obj.transform.forward, out hit, PlayerInfo.instance.p_col.bounds.size.y * 0.75f, LayerMask.GetMask("Interactable")))
+        {
+            //get the town from the hit
+            TownScript h_t = hit.transform.parent.GetComponent<TownScript>();
+            //update if necessary
+            if (h_t != PlayerInfo.instance.active_town)
+            {
+                h_t.ring.SetActive(true);
+                PlayerInfo.instance.active_town = h_t;
+            }
+        }
+        else
+        {
+            TownScript t = PlayerInfo.instance.active_town;
+            //disable down if there is one 
+            if (t != null)
+            {
+                t.ring.SetActive(false);
+                PlayerInfo.instance.active_town = null;
+            }
+        }
     }
 
     private void FixedUpdate()
     {
+        //cancel out of not allowed to control
+        if (!PlayerInfo.instance.can_control) return;
+
         //handle the camera height offset
         Vector2 movement = input.Overworld.Movement.ReadValue<Vector2>();
 
         //only run this if not forced stepping
-        if(!PlayerInfo.instance.stepping)
+        if (!PlayerInfo.instance.stepping)
         {
             //handle stepping / camera bob
-            if(movement.y != 0)
+            if (movement.y != 0)
             {
                 height_offset += bob_speed * Time.deltaTime;
                 PlayerInfo.instance.speed = 0.1f;
             }
-            else if(height_offset > 0f)
+            else if (height_offset > 0f)
             {
                 height_offset -= bob_speed * Time.deltaTime;
                 PlayerInfo.instance.speed = -0.1f;
@@ -129,7 +159,7 @@ public class PlayerCam : MonoBehaviour
     private IEnumerator MovementStep()
     {
         //step one is to move down until low necessity
-        while(height_offset > -bob_threshold * 0.4f)
+        while (height_offset > -bob_threshold * 0.4f)
         {
             height_offset -= bob_speed * 2.5f * Time.deltaTime;
             yield return new WaitForEndOfFrame();
@@ -160,7 +190,7 @@ public class PlayerCam : MonoBehaviour
         float shrink_factor = sx / time;
 
         //shake loop
-        while(timer < time)
+        while (timer < time)
         {
             //do the shake
             shake_x = Random.Range(-sx, sx);
@@ -176,5 +206,43 @@ public class PlayerCam : MonoBehaviour
         //stop shake
         shake_x = 0f;
         shake_y = 0f;
+    }
+
+    //function to transition to town camera
+    public void TransitionToTown(InputAction.CallbackContext context)
+    {
+        if (PlayerInfo.instance.active_town != null)
+        {
+            StartCoroutine(TransitionToTown());
+        }
+    }
+
+    private IEnumerator TransitionToTown()
+    {
+        //make sure the camera is set so the up is away from the player
+        //NOT WORKING PROPERLY
+        //PlayerInfo.instance.active_town.cam.transform.up = (PlayerInfo.instance.active_town.transform.position - transform.position);
+
+        //start the camera transition
+        CameraController.instance.CameraTransition(PlayerInfo.instance.p_cam, PlayerInfo.instance.active_town.cam, 1f);
+        //disable the player
+        PlayerInfo.instance.DisablePlayer();
+
+        //pause for camera to align
+        yield return new WaitForSeconds(2f);
+
+        //start the fadeout
+        CameraController.instance.FadeIn(0.5f);
+
+        //lower the camera for a period of time
+        float y_offset = PlayerInfo.instance.active_town.cam.transform.position.y - 3f;
+        while (PlayerInfo.instance.active_town.cam.transform.position.y > y_offset)
+        {
+            //lower the camera
+            Vector3 pos = PlayerInfo.instance.active_town.cam.transform.position;
+            pos.y -= Time.deltaTime * 0.5f;
+            PlayerInfo.instance.active_town.cam.transform.position = pos;
+            yield return new WaitForEndOfFrame();
+        }
     }
 }
