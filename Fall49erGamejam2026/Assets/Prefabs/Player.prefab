@@ -343,7 +343,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1001300974284964024}
         m_TargetAssemblyTypeName: PlayerCam, Assembly-CSharp
-        m_MethodName: TownTransition
+        m_MethodName: StartPlayerToTown
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

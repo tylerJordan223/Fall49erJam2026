@@ -64,6 +64,9 @@ public class WorldScript : MonoBehaviour
     //this will turn on the town canvas with the appropriate information
     public void ActivateTown()
     {
+        //quickly fill in all the necessary information
+        timer_length = PlayerInfo.instance.active_town.search_length;
+
         //transition the camera
         CameraController.instance.CameraTransition(cam);
 
@@ -99,7 +102,10 @@ public class WorldScript : MonoBehaviour
         //pause for effect
         yield return new WaitForSeconds(1f);
 
+        //set town as finished
+        PlayerInfo.instance.active_town.interactable = false;
+
         //do the transition
-        PlayerInfo.instance.pc.PlayerTransition();
+        PlayerInfo.instance.pc.StartTownToPlayer();
     }
 }
