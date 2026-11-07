@@ -1122,6 +1122,16 @@ namespace P_Input
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Button"",
+                    ""id"": ""2e86ba93-2232-4f3b-a4f4-fc62c3d39624"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -1188,6 +1198,17 @@ namespace P_Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4013f9d4-ee1a-4092-818e-1ca5661e40af"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Debug"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1284,6 +1305,7 @@ namespace P_Input
             m_Overworld = asset.FindActionMap("Overworld", throwIfNotFound: true);
             m_Overworld_Movement = m_Overworld.FindAction("Movement", throwIfNotFound: true);
             m_Overworld_Interact = m_Overworld.FindAction("Interact", throwIfNotFound: true);
+            m_Overworld_Debug = m_Overworld.FindAction("Debug", throwIfNotFound: true);
         }
 
         ~@PlayerInput()
@@ -1747,6 +1769,7 @@ namespace P_Input
         private List<IOverworldActions> m_OverworldActionsCallbackInterfaces = new List<IOverworldActions>();
         private readonly InputAction m_Overworld_Movement;
         private readonly InputAction m_Overworld_Interact;
+        private readonly InputAction m_Overworld_Debug;
         /// <summary>
         /// Provides access to input actions defined in input action map "Overworld".
         /// </summary>
@@ -1766,6 +1789,10 @@ namespace P_Input
             /// Provides access to the underlying input action "Overworld/Interact".
             /// </summary>
             public InputAction @Interact => m_Wrapper.m_Overworld_Interact;
+            /// <summary>
+            /// Provides access to the underlying input action "Overworld/Debug".
+            /// </summary>
+            public InputAction @Debug => m_Wrapper.m_Overworld_Debug;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1798,6 +1825,9 @@ namespace P_Input
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @Debug.started += instance.OnDebug;
+                @Debug.performed += instance.OnDebug;
+                @Debug.canceled += instance.OnDebug;
             }
 
             /// <summary>
@@ -1815,6 +1845,9 @@ namespace P_Input
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @Debug.started -= instance.OnDebug;
+                @Debug.performed -= instance.OnDebug;
+                @Debug.canceled -= instance.OnDebug;
             }
 
             /// <summary>
@@ -2083,6 +2116,13 @@ namespace P_Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnInteract(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Debug" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnDebug(InputAction.CallbackContext context);
         }
     }
 }

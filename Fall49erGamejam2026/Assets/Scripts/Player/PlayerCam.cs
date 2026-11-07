@@ -58,8 +58,12 @@ public class PlayerCam : MonoBehaviour
 
     private void Start()
     {
+        //get the base values
         height_base = PlayerInfo.instance.p_cam_obj.transform.localPosition.y;
         width_base = PlayerInfo.instance.p_cam_obj.transform.localPosition.x;
+
+        //set the active camera to player
+        CameraController.instance.active_cam = PlayerInfo.instance.p_cam;
     }
 
     private void Update()
@@ -208,12 +212,20 @@ public class PlayerCam : MonoBehaviour
         shake_y = 0f;
     }
 
-    //function to transition to town camera
+    //functions to transition between player and town
     public void TransitionToTown(InputAction.CallbackContext context)
     {
-        if (PlayerInfo.instance.active_town != null)
+        if (context.performed && PlayerInfo.instance.active_town != null)
         {
             StartCoroutine(TransitionToTown());
+        }
+    }
+
+    public void TransitionToPlayer(InputAction.CallbackContext context)
+    {
+        if (context.performed && PlayerInfo.instance.active_town != null)
+        {
+            StartCoroutine(TransitionToPlayer());
         }
     }
 
@@ -224,12 +236,13 @@ public class PlayerCam : MonoBehaviour
         //PlayerInfo.instance.active_town.cam.transform.up = (PlayerInfo.instance.active_town.transform.position - transform.position);
 
         //start the camera transition
-        CameraController.instance.CameraTransition(PlayerInfo.instance.p_cam, PlayerInfo.instance.active_town.cam, 1f);
+        CameraController.instance.CameraTransition(PlayerInfo.instance.active_town.cam, 1f);
+
         //disable the player
-        PlayerInfo.instance.DisablePlayer();
+        PlayerInfo.instance.can_control = false;
 
         //pause for camera to align
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
 
         //start the fadeout
         CameraController.instance.FadeIn(0.5f);
@@ -240,9 +253,38 @@ public class PlayerCam : MonoBehaviour
         {
             //lower the camera
             Vector3 pos = PlayerInfo.instance.active_town.cam.transform.position;
-            pos.y -= Time.deltaTime * 0.5f;
+            pos.y -= Time.deltaTime * 1f;
             PlayerInfo.instance.active_town.cam.transform.position = pos;
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    private IEnumerator TransitionToPlayer()
+    {
+        //do the TransitionToTown in reverse
+
+        //start the fadein
+        CameraController.instance.FadeOut(0.5f);
+
+        //raise the camera for a period of time
+        float y_offset = PlayerInfo.instance.active_town.cam.transform.position.y + 3f;
+        while (PlayerInfo.instance.active_town.cam.transform.position.y < y_offset)
+        {
+            //lower the camera
+            Vector3 pos = PlayerInfo.instance.active_town.cam.transform.position;
+            pos.y += Time.deltaTime * 1f;
+            PlayerInfo.instance.active_town.cam.transform.position = pos;
+            yield return new WaitForEndOfFrame();
+        }
+
+        //start the camera transition
+        CameraController.instance.CameraTransition(PlayerInfo.instance.p_cam, 1f);
+
+        //pause for camera to align
+        yield return new WaitForSeconds(1.5f);
+
+        //disable the player
+        PlayerInfo.instance.EnablePlayer();
+        
     }
 }
