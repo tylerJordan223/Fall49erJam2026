@@ -100,10 +100,9 @@ public class DomesticatedCritter : MonoBehaviour
                 distance.z += col.bounds.size.z/2;
 
                 //use velocity to push towards the cursor
+                Debug.Log("garunteed to update velocity");
                 rb.linearVelocity = distance * followSpeed;
 
-                //update the position
-                //rb.MovePosition(new Vector3(transform.position.x, target.y + col.bounds.size.y / 2, target.z + col.bounds.size.x / 2));
             }
 
             //disable the hold

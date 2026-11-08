@@ -98,7 +98,7 @@ public class PlayerCam : MonoBehaviour
         //UPDATING THE ACTIVE TOWN//
         RaycastHit hit;
         Debug.DrawRay(PlayerInfo.instance.p_cam_obj.transform.position, PlayerInfo.instance.p_cam_obj.transform.forward, Color.purple);
-        if (Physics.Raycast(PlayerInfo.instance.p_cam_obj.transform.position, PlayerInfo.instance.p_cam_obj.transform.forward, out hit, PlayerInfo.instance.p_col.bounds.size.y * 0.75f, LayerMask.GetMask("Interactable")))
+        if (Physics.Raycast(PlayerInfo.instance.p_cam_obj.transform.position, PlayerInfo.instance.p_cam_obj.transform.forward, out hit, PlayerInfo.instance.p_col.bounds.size.y, LayerMask.GetMask("Interactable")))
         {
             //get the town from the hit
             TownScript h_t = hit.transform.parent.GetComponent<TownScript>();
@@ -153,7 +153,7 @@ public class PlayerCam : MonoBehaviour
             {
                 //make it true and set the movement to that direction
                 PlayerInfo.instance.stepping = true;
-                PlayerInfo.instance.speed = 2f * movement.y;
+                PlayerInfo.instance.speed = 4f * movement.y;
                 StartCoroutine(MovementStep());
             }
         }
