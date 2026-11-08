@@ -929,6 +929,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Town (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: cooldown_length
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 29.12
@@ -2644,6 +2652,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Town (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: cooldown_length
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 178.9
@@ -3903,6 +3919,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Town (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: cooldown_length
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.29
@@ -4306,6 +4330,14 @@ PrefabInstance:
     - target: {fileID: 1790302671407413749, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_Name
       value: Town (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: cooldown_length
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5885,6 +5917,14 @@ PrefabInstance:
     - target: {fileID: 1790302671407413749, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_Name
       value: Town (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: cooldown_length
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9819,6 +9859,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Town (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: cooldown_length
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.339996
@@ -13101,6 +13149,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Town
       objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: cooldown_length
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 75.11
@@ -13846,6 +13902,14 @@ PrefabInstance:
     - target: {fileID: 1790302671407413749, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_Name
       value: Town (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: cooldown_length
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
