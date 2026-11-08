@@ -308,7 +308,7 @@ public class PlayerCam : MonoBehaviour
     public void StartPlayerToTerrarium(InputAction.CallbackContext context)
     {
         //make sure its not already in town
-        if (!PlayerInfo.instance.can_control) return;
+        if (!PlayerInfo.instance.can_control || PlayerInfo.instance.stepping) return;
 
         if (context.performed)
         {
