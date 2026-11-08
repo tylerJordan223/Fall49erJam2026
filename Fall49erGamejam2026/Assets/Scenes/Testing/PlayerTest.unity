@@ -1204,6 +1204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Town
       objectReference: {fileID: 0}
+    - target: {fileID: 4661053115981126015, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
+      propertyPath: num_critters
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6991067648450336766, guid: 1a4ef863863ee1745a52a68d82064fdf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.38957

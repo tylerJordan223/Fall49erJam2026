@@ -16,6 +16,7 @@ public class TownScript : MonoBehaviour
     public bool interactable;
     [SerializeField] public List<CritterObject> critters;
     public int search_length;
+    public int num_critters;
 
     private void Start()
     {
