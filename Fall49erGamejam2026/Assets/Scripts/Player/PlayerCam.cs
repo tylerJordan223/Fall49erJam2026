@@ -98,7 +98,7 @@ public class PlayerCam : MonoBehaviour
             //get the town from the hit
             TownScript h_t = hit.transform.parent.GetComponent<TownScript>();
             //update if necessary
-            if (h_t != PlayerInfo.instance.active_town)
+            if (h_t != PlayerInfo.instance.active_town && h_t.interactable)
             {
                 h_t.ring.SetActive(true);
                 PlayerInfo.instance.active_town = h_t;
@@ -213,23 +213,26 @@ public class PlayerCam : MonoBehaviour
     }
 
     //functions to transition between player and town
-    public void TransitionToTown(InputAction.CallbackContext context)
+    public void StartPlayerToTown(InputAction.CallbackContext context)
     {
+        //make sure its not already in town
+        if (!PlayerInfo.instance.can_control) return;
+
         if (context.performed && PlayerInfo.instance.active_town != null)
         {
-            StartCoroutine(TransitionToTown());
+            StartCoroutine(PlayerToTown());
         }
     }
 
-    public void TransitionToPlayer(InputAction.CallbackContext context)
+    public void StartTownToPlayer()
     {
-        if (context.performed && PlayerInfo.instance.active_town != null)
+        if (PlayerInfo.instance.active_town != null)
         {
-            StartCoroutine(TransitionToPlayer());
+            StartCoroutine(TownToPlayer());
         }
     }
 
-    private IEnumerator TransitionToTown()
+    private IEnumerator PlayerToTown()
     {
         //make sure the camera is set so the up is away from the player
         //NOT WORKING PROPERLY
@@ -257,9 +260,13 @@ public class PlayerCam : MonoBehaviour
             PlayerInfo.instance.active_town.cam.transform.position = pos;
             yield return new WaitForEndOfFrame();
         }
-    }
 
-    private IEnumerator TransitionToPlayer()
+        //swap to town area
+        WorldScript.instance.ActivateTown();
+    }
+    
+    //transitioning from town to player
+    private IEnumerator TownToPlayer()
     {
         //do the TransitionToTown in reverse
 
@@ -282,6 +289,11 @@ public class PlayerCam : MonoBehaviour
 
         //pause for camera to align
         yield return new WaitForSeconds(1.5f);
+
+        //set town as finished
+        PlayerInfo.instance.active_town.interactable = false;
+        PlayerInfo.instance.active_town.ring.SetActive(false);
+        PlayerInfo.instance.active_town = null;
 
         //disable the player
         PlayerInfo.instance.EnablePlayer();

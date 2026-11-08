@@ -343,7 +343,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1001300974284964024}
         m_TargetAssemblyTypeName: PlayerCam, Assembly-CSharp
-        m_MethodName: TransitionToTown
+        m_MethodName: StartPlayerToTown
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -355,6 +355,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: de147712-6322-4191-a9d9-cd9389998df3
     m_ActionName: 'Overworld/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2e86ba93-2232-4f3b-a4f4-fc62c3d39624
+    m_ActionName: 'Overworld/Debug[/Keyboard/p]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Overworld
@@ -405,8 +409,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001

@@ -23,13 +23,16 @@ public class CameraController : MonoBehaviour
     //this is a script to handle all global camera control//
 
     //global camera fields
-    [SerializeField] Camera mainCamera;
+    [SerializeField] public Camera mainCamera;
     public CinemachineCamera active_cam;
     private CinemachineBrain brain;
 
     //global canvases
     [Header("Canvas Objects")]
-    [SerializeField] Canvas fade_canvas;
+    [SerializeField] public Canvas fade_canvas;
+    [SerializeField] public Canvas town_canvas;
+    [SerializeField] public Canvas flashlight_canvas;
+    [SerializeField] public Image flashlight;
 
     private void Start()
     {
@@ -40,8 +43,6 @@ public class CameraController : MonoBehaviour
     //function to handle a camera transition over a certain amount of time
     public void CameraTransition(CinemachineCamera new_cam, float transition_time = 0f)
     {
-        Debug.Log(new_cam);
-
         //first set the blend time
         brain.DefaultBlend.Time = transition_time;
 
@@ -51,8 +52,6 @@ public class CameraController : MonoBehaviour
 
         //set this as the new active cam
         active_cam = new_cam;
-
-        Debug.Log("RAN TRANSITION");
     }
 
     //functions to handle the fade canvas
