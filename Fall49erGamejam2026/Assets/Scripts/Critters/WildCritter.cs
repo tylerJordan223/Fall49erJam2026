@@ -34,6 +34,8 @@ public class WildCritter : MonoBehaviour
 
         if(caught_percent >= 100f)
         {
+            //this means its caught, add its object to the terrarium
+            TerrariumScript.instance.AddCritter(critter_object);
             DestroyImmediate(this.gameObject);
         }
     }

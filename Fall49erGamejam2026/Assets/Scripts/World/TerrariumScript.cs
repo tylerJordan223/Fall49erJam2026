@@ -1,5 +1,6 @@
 using P_Input;
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,6 +29,9 @@ public class TerrariumScript : MonoBehaviour
     [Header("UI Information")]
     [SerializeField] public Canvas terrarium_canvas;
     [SerializeField] public Image pointer;
+
+    [Header("Critter Information")]
+    public List<CritterObject> critters;
 
     //private info
     private bool active;
@@ -119,5 +123,11 @@ public class TerrariumScript : MonoBehaviour
 
         //transition back to player
         PlayerInfo.instance.pc.StartTerrariumToPlayer();
+    }
+
+    //function used to add critters to the terrarium
+    public void AddCritter(CritterObject co)
+    {
+        critters.Add(co);
     }
 }
