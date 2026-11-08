@@ -824,6 +824,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1967104426724768286, guid: 1b988bc08289c74438e035b284138702, type: 3}
       insertIndex: -1
       addedObject: {fileID: 314177824202150558}
+    - targetCorrespondingSourceObject: {fileID: 1967104426724768286, guid: 1b988bc08289c74438e035b284138702, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4227569836599129053}
+    - targetCorrespondingSourceObject: {fileID: 1967104426724768286, guid: 1b988bc08289c74438e035b284138702, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7235550110296438164}
   m_SourcePrefab: {fileID: 100100000, guid: 1b988bc08289c74438e035b284138702, type: 3}
 --- !u!1 &1810598682499221582 stripped
 GameObject:
@@ -851,6 +857,46 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4227569836599129053
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810598682499221582}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
+--- !u!114 &7235550110296438164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810598682499221582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c89e62b68d4c34f9e3d898d6f5f988, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WildCritter
+  speed: 5
 --- !u!4 &7682445039686631821 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7561968091468723165, guid: 1b988bc08289c74438e035b284138702, type: 3}
