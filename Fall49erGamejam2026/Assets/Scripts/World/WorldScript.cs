@@ -2,6 +2,7 @@ using P_Input;
 using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -22,13 +23,20 @@ public class WorldScript : MonoBehaviour
 
     //this is a script ot handle the segment of 2d overworld
 
-    [Header("Information")]
+    [Header("Object Info")]
     [SerializeField] public CinemachineCamera cam;
+    [SerializeField] public CritterSpawner spawner;
+
+    [Header("Unique Info")]
     public float timer_length;
+    public float spawn_amount;
+    public float spawn_width;
+    public float spawn_height;
 
     //private information
     private float timer;
     private bool active;
+
 
     #region input
     //controls
@@ -108,6 +116,7 @@ public class WorldScript : MonoBehaviour
     {
         //quickly fill in all the necessary information
         timer_length = PlayerInfo.instance.active_town.search_length;
+        spawn_amount = PlayerInfo.instance.active_town.num_critters;
 
         //transition the camera
         CameraController.instance.CameraTransition(cam);
@@ -116,6 +125,15 @@ public class WorldScript : MonoBehaviour
         CameraController.instance.fade_canvas.gameObject.SetActive(false);
         CameraController.instance.flashlight_canvas.gameObject.SetActive(true);
         CameraController.instance.town_canvas.gameObject.SetActive(true);
+
+        //spawn the critters within spawn space
+        for(int i = 0; i < spawn_amount; i++)
+        {
+            float x = Random.Range(-spawn_width, spawn_width);
+            float y = Random.Range(-spawn_height, spawn_height);
+
+            spawner.SpawnCritter(x, y);
+        }
 
         //start the timer
         timer = timer_length;
@@ -140,6 +158,9 @@ public class WorldScript : MonoBehaviour
 
         //set the camera to town cam
         CameraController.instance.CameraTransition(PlayerInfo.instance.active_town.cam);
+
+        //delete all leftover critters
+        spawner.ResetCritters();
 
         //pause for effect
         yield return new WaitForSeconds(1f);
