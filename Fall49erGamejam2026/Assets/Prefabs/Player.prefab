@@ -145,7 +145,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.020069981, z: 0, w: 0.9997986}
   m_LocalPosition: {x: 6.39291, y: 2.34, z: -22.30013}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1196307210521048698}
@@ -377,10 +377,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e8f1ff8e-6ef4-44ce-b26f-20cf7eded608
     m_ActionName: 'Overworld/Enter[/Keyboard/space]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c1407875-ce5b-4f2e-b8b3-d0e82ad74bc2
-    m_ActionName: 'Overworld/Click[/Mouse/leftButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Overworld

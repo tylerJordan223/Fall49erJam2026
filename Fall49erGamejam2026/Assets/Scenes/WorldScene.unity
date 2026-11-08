@@ -2511,15 +2511,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.531403
+      value: 33.519516
       objectReference: {fileID: 0}
     - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 47.462467
+      value: 47.311268
       objectReference: {fileID: 0}
     - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 42.519318
+      value: 42.223557
       objectReference: {fileID: 0}
     - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2537,6 +2537,46 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -35.190002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 154.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 133.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5623442
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.048202634
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.71967965
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.4043598
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 39.511
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 93.011
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819392090655391936, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -29.97
+      objectReference: {fileID: 0}
     - target: {fileID: 2804168008361408277, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
       propertyPath: field of view
       value: 55
@@ -2544,6 +2584,26 @@ PrefabInstance:
     - target: {fileID: 6280145401444321787, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
       propertyPath: m_Name
       value: WorldMechanics
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616636980780736179, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8032965
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616636980780736179, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8757244
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616636980780736179, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_Color.r
+      value: 0.96981126
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616636980780736179, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_Intensity
+      value: 4.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616636980780736179, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_BounceIntensity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5115,13 +5175,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1001300974284964024, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
-      propertyPath: bob_threshold
-      value: 0.7
-      objectReference: {fileID: 0}
     - target: {fileID: 2412669266582266753, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359682701635944689, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359682701635944689, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionId
+      value: c1407875-ce5b-4f2e-b8b3-d0e82ad74bc2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6359682701635944689, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_ActionEvents.Array.data[23].m_ActionName
+      value: 'Overworld/Click[/Mouse/leftButton]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684759224616798936, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684759224616798936, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6684759224616798936, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 6684759224616798936, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6621,7 +6701,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 729200522dfd32648bfecf938d8877b8, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
