@@ -9,6 +9,7 @@ public class CritterObject : ScriptableObject
     [Header("Default Information")]
     public string c_name;
     public Sprite base_sprite;
+    public Sprite falling_sprite;
 
     [Header("Bools")]
     public bool shiny;
