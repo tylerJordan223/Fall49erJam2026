@@ -151,6 +151,9 @@ public class WorldScript : MonoBehaviour
         //turn off the town
         active = false;
 
+        //lock the cursor
+        Cursor.lockState = CursorLockMode.Locked;
+
         //swap canvases
         CameraController.instance.fade_canvas.gameObject.SetActive(true);
         CameraController.instance.flashlight_canvas.gameObject.SetActive(false);

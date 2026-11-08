@@ -296,8 +296,7 @@ public class PlayerCam : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         //set town as finished
-        PlayerInfo.instance.active_town.interactable = false;
-        PlayerInfo.instance.active_town.ring.SetActive(false);
+        PlayerInfo.instance.active_town.Cooldown();
         PlayerInfo.instance.active_town = null;
 
         //disable the player
