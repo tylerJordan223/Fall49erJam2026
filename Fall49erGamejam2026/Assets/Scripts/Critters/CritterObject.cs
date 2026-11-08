@@ -19,6 +19,15 @@ public class CritterObject : ScriptableObject
     public int rarity;
 
     [Header("Animations")]
+    public Animator anim;
     public Animation walking;
     public Animation talking;
+    public Animation falling;
+    
+    //function to set up the critter
+    public void InitializeCritter()
+    {
+        //set the new animations
+
+    }
 }

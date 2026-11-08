@@ -1102,6 +1102,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -37.91334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -72.23872
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -155.27817
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577373594751300257, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2804168008361408277, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
+      propertyPath: field of view
+      value: 38
+      objectReference: {fileID: 0}
     - target: {fileID: 6280145401444321787, guid: e9abf973ef5cadd4ba2871e7bda4a3f9, type: 3}
       propertyPath: m_Name
       value: WorldMechanics
