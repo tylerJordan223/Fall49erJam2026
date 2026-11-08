@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class TerrariumScript : MonoBehaviour
 {
@@ -24,19 +25,27 @@ public class TerrariumScript : MonoBehaviour
     public Vector3 start_position;
     public Vector3 end_position;
 
+    [Header("UI Information")]
+    [SerializeField] public Canvas terrarium_canvas;
+    [SerializeField] public Image pointer;
+
     //private info
     private bool active;
 
-    P_Input.PlayerInput input;
-    private void OnEnable()
+    private void Update()
     {
-        input = new P_Input.PlayerInput();
-        input.Terrarium.Enable();
-    }
-
-    private void OnDisable()
-    {
-        input.Terrarium.Disable();
+        if(terrarium_canvas.isActiveAndEnabled)
+        {
+            //code to have pointer follow mouse
+            Vector2 localPoint;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    terrarium_canvas.GetComponent<RectTransform>(),
+                    Mouse.current.position.ReadValue(),
+                    null,
+                    out localPoint
+            );
+            pointer.GetComponent<RectTransform>().anchoredPosition = localPoint;
+        }
     }
 
     public void StartDeactivation(InputAction.CallbackContext context)
@@ -61,7 +70,7 @@ public class TerrariumScript : MonoBehaviour
 
         //move from start to end position
         float timer = 0;
-        while(transform.position != end_position)
+        while(cam.transform.localPosition != end_position)
         {
             //move the position using a lerp
             cam.transform.localPosition = Vector3.Lerp(start_position, end_position, timer);
@@ -74,27 +83,41 @@ public class TerrariumScript : MonoBehaviour
 
         //terrarium is now active
         active = true;
+        terrarium_canvas.gameObject.SetActive(true);
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void StartDeactivate()
+    {
+        if (!active) return;
+
+        StartCoroutine(DeactivateTerrarium());
     }
 
     public IEnumerator DeactivateTerrarium()
     {
         //terrarium is no longer active
         active = false;
+        terrarium_canvas.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
 
         //fade out overtime
-        CameraController.instance.FadeOut(0.7f);
+        CameraController.instance.FadeIn(1f);
 
         //move from end to start position
         float timer = 0;
-        while (transform.position != end_position)
+        while (cam.transform.localPosition != start_position)
         {
             //move the position using a lerp
-            cam.transform.position = Vector3.Lerp(end_position, start_position, timer);
+            cam.transform.localPosition = Vector3.Lerp(end_position, start_position, timer);
 
             //increase timer
             timer += Time.deltaTime;
 
             yield return new WaitForEndOfFrame();
         }
+
+        //transition back to player
+        PlayerInfo.instance.pc.StartTerrariumToPlayer();
     }
 }

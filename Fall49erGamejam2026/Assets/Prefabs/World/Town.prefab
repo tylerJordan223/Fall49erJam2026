@@ -240,6 +240,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TownScript
   ring: {fileID: 8016260301362114413}
   cam: {fileID: 7798780821056104932}
+  interactable: 0
+  critters: []
+  search_length: 10
 --- !u!136 &3561786898974519769
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -1234,35 +1234,6 @@ namespace P_Input
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Terrarium"",
-            ""id"": ""fade5f7d-1215-47c9-80fb-8a39872fa56a"",
-            ""actions"": [
-                {
-                    ""name"": ""Enter"",
-                    ""type"": ""Button"",
-                    ""id"": ""805fada0-7111-49bf-806a-4f64ddbc16cd"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false,
-                    ""priority"": 0
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""7fbb8ea7-9481-4eb4-b901-87023fa31cb7"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Enter"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -1357,9 +1328,6 @@ namespace P_Input
             m_Overworld_Interact = m_Overworld.FindAction("Interact", throwIfNotFound: true);
             m_Overworld_Debug = m_Overworld.FindAction("Debug", throwIfNotFound: true);
             m_Overworld_Enter = m_Overworld.FindAction("Enter", throwIfNotFound: true);
-            // Terrarium
-            m_Terrarium = asset.FindActionMap("Terrarium", throwIfNotFound: true);
-            m_Terrarium_Enter = m_Terrarium.FindAction("Enter", throwIfNotFound: true);
         }
 
         ~@PlayerInput()
@@ -1367,7 +1335,6 @@ namespace P_Input
             UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInput.Player.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInput.UI.Disable() has not been called.");
             UnityEngine.Debug.Assert(!m_Overworld.enabled, "This will cause a leak and performance issues, PlayerInput.Overworld.Disable() has not been called.");
-            UnityEngine.Debug.Assert(!m_Terrarium.enabled, "This will cause a leak and performance issues, PlayerInput.Terrarium.Disable() has not been called.");
         }
 
         /// <summary>
@@ -1947,102 +1914,6 @@ namespace P_Input
         /// Provides a new <see cref="OverworldActions" /> instance referencing this action map.
         /// </summary>
         public OverworldActions @Overworld => new OverworldActions(this);
-
-        // Terrarium
-        private readonly InputActionMap m_Terrarium;
-        private List<ITerrariumActions> m_TerrariumActionsCallbackInterfaces = new List<ITerrariumActions>();
-        private readonly InputAction m_Terrarium_Enter;
-        /// <summary>
-        /// Provides access to input actions defined in input action map "Terrarium".
-        /// </summary>
-        public struct TerrariumActions
-        {
-            private @PlayerInput m_Wrapper;
-
-            /// <summary>
-            /// Construct a new instance of the input action map wrapper class.
-            /// </summary>
-            public TerrariumActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
-            /// <summary>
-            /// Provides access to the underlying input action "Terrarium/Enter".
-            /// </summary>
-            public InputAction @Enter => m_Wrapper.m_Terrarium_Enter;
-            /// <summary>
-            /// Provides access to the underlying input action map instance.
-            /// </summary>
-            public InputActionMap Get() { return m_Wrapper.m_Terrarium; }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
-            public void Enable() { Get().Enable(); }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
-            public void Disable() { Get().Disable(); }
-            /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
-            public bool enabled => Get().enabled;
-            /// <summary>
-            /// Implicitly converts an <see ref="TerrariumActions" /> to an <see ref="InputActionMap" /> instance.
-            /// </summary>
-            public static implicit operator InputActionMap(TerrariumActions set) { return set.Get(); }
-            /// <summary>
-            /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-            /// </summary>
-            /// <param name="instance">Callback instance.</param>
-            /// <remarks>
-            /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
-            /// </remarks>
-            /// <seealso cref="TerrariumActions" />
-            public void AddCallbacks(ITerrariumActions instance)
-            {
-                if (instance == null || m_Wrapper.m_TerrariumActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_TerrariumActionsCallbackInterfaces.Add(instance);
-                @Enter.started += instance.OnEnter;
-                @Enter.performed += instance.OnEnter;
-                @Enter.canceled += instance.OnEnter;
-            }
-
-            /// <summary>
-            /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
-            /// </summary>
-            /// <remarks>
-            /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
-            /// </remarks>
-            /// <seealso cref="TerrariumActions" />
-            private void UnregisterCallbacks(ITerrariumActions instance)
-            {
-                @Enter.started -= instance.OnEnter;
-                @Enter.performed -= instance.OnEnter;
-                @Enter.canceled -= instance.OnEnter;
-            }
-
-            /// <summary>
-            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="TerrariumActions.UnregisterCallbacks(ITerrariumActions)" />.
-            /// </summary>
-            /// <seealso cref="TerrariumActions.UnregisterCallbacks(ITerrariumActions)" />
-            public void RemoveCallbacks(ITerrariumActions instance)
-            {
-                if (m_Wrapper.m_TerrariumActionsCallbackInterfaces.Remove(instance))
-                    UnregisterCallbacks(instance);
-            }
-
-            /// <summary>
-            /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
-            /// </summary>
-            /// <remarks>
-            /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
-            /// </remarks>
-            /// <seealso cref="TerrariumActions.AddCallbacks(ITerrariumActions)" />
-            /// <seealso cref="TerrariumActions.RemoveCallbacks(ITerrariumActions)" />
-            /// <seealso cref="TerrariumActions.UnregisterCallbacks(ITerrariumActions)" />
-            public void SetCallbacks(ITerrariumActions instance)
-            {
-                foreach (var item in m_Wrapper.m_TerrariumActionsCallbackInterfaces)
-                    UnregisterCallbacks(item);
-                m_Wrapper.m_TerrariumActionsCallbackInterfaces.Clear();
-                AddCallbacks(instance);
-            }
-        }
-        /// <summary>
-        /// Provides a new <see cref="TerrariumActions" /> instance referencing this action map.
-        /// </summary>
-        public TerrariumActions @Terrarium => new TerrariumActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         /// <summary>
         /// Provides access to the input control scheme.
@@ -2285,21 +2156,6 @@ namespace P_Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnDebug(InputAction.CallbackContext context);
-            /// <summary>
-            /// Method invoked when associated input action "Enter" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnEnter(InputAction.CallbackContext context);
-        }
-        /// <summary>
-        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Terrarium" which allows adding and removing callbacks.
-        /// </summary>
-        /// <seealso cref="TerrariumActions.AddCallbacks(ITerrariumActions)" />
-        /// <seealso cref="TerrariumActions.RemoveCallbacks(ITerrariumActions)" />
-        public interface ITerrariumActions
-        {
             /// <summary>
             /// Method invoked when associated input action "Enter" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

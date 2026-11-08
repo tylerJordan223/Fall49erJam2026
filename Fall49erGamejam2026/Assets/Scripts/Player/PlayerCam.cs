@@ -319,10 +319,7 @@ public class PlayerCam : MonoBehaviour
 
     public void StartTerrariumToPlayer()
     {
-        if (PlayerInfo.instance.active_town != null)
-        {
-            StartCoroutine(TerrariumToPlayer());
-        }
+        StartCoroutine(TerrariumToPlayer());
     }
 
     private IEnumerator PlayerToTerrarium()
@@ -331,6 +328,7 @@ public class PlayerCam : MonoBehaviour
         visionEffect.SetActive(true);
         visionEffect.transform.rotation = PlayerInfo.instance.p_cam_obj.transform.rotation;
         visionEffect.transform.position = PlayerInfo.instance.p_cam_obj.transform.position;
+        PlayerInfo.instance.p_body.SetActive(false);
 
         //disable the player
         PlayerInfo.instance.can_control = false;
@@ -359,12 +357,15 @@ public class PlayerCam : MonoBehaviour
 
     private IEnumerator TerrariumToPlayer()
     {
+        //set the camera
+        CameraController.instance.CameraTransition(PlayerInfo.instance.p_cam);
+
         //start the fadeout
         CameraController.instance.FadeOut(0.5f);
 
         //move the camera backwards into the player
         Vector3 start = PlayerInfo.instance.p_cam_obj.transform.position;
-        Vector3 end = (PlayerInfo.instance.p_cam_obj.transform.forward - PlayerInfo.instance.p_cam_obj.transform.position) * 3f;
+        Vector3 end = start + PlayerInfo.instance.p_cam_obj.transform.forward * 2f;
         float timer = 0f;
         while (PlayerInfo.instance.p_cam_obj.transform.position != end)
         {
@@ -376,6 +377,12 @@ public class PlayerCam : MonoBehaviour
         }
 
         //enable the player
-        PlayerInfo.instance.can_control = false;
+        PlayerInfo.instance.can_control = true;
+
+        //line up the vision effect and turn it off
+        visionEffect.transform.rotation = PlayerInfo.instance.p_cam_obj.transform.rotation;
+        visionEffect.transform.position = PlayerInfo.instance.p_cam_obj.transform.position;
+        visionEffect.SetActive(false);
+        PlayerInfo.instance.p_body.SetActive(true);
     }
 }
