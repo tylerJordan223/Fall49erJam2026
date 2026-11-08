@@ -2,6 +2,7 @@ using P_Input;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -35,6 +36,24 @@ public class TerrariumScript : MonoBehaviour
 
     //private info
     private bool active;
+
+    #region input
+    //controls
+    P_Input.PlayerInput input;
+
+    private void OnEnable()
+    {
+        input = new P_Input.PlayerInput();
+        input.Overworld.Click.performed += AttemptGrab;
+        input.Overworld.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Overworld.Disable();
+    }
+    #endregion input
+
 
     private void Update()
     {
@@ -129,5 +148,30 @@ public class TerrariumScript : MonoBehaviour
     public void AddCritter(CritterObject co)
     {
         critters.Add(co);
+    }
+
+    //function to handle picking up a critter
+    public void AttemptGrab(InputAction.CallbackContext context)
+    {
+        if (!active) return;
+
+        //perform a raycast from camera to mouse, then check if it hits any critters
+        Ray ray = CameraController.instance.mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        RaycastHit[] all_hits;
+        all_hits = Physics.RaycastAll(ray, Mathf.Infinity);
+
+        //sort the list
+        System.Array.Sort(all_hits, (a, b) => a.distance.CompareTo(b.distance));
+
+        //go through the list to find the first critter it hits
+        foreach(RaycastHit hit in all_hits)
+        {
+            //check to see if its a critter
+            if (hit.collider.CompareTag("critter"))
+            {
+                hit.collider.transform.parent.GetComponent<DomesticatedCritter>().held = true;
+                break;
+            }
+        }
     }
 }

@@ -37,24 +37,6 @@ public class WorldScript : MonoBehaviour
     private float timer;
     private bool active;
 
-
-    #region input
-    //controls
-    P_Input.PlayerInput input;
-
-    private void OnEnable()
-    {
-        input = new P_Input.PlayerInput();
-        input.Overworld.Click.performed += ClickAction;
-        input.Overworld.Enable();
-    }
-
-    private void OnDisable()
-    {
-        input.Overworld.Disable();
-    }
-    #endregion input
-
     private void Update()
     {
         if (!active) return;
