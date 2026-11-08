@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CritterSpawner : MonoBehaviour
@@ -16,12 +17,18 @@ public class CritterSpawner : MonoBehaviour
     }
 
     //class to handle spawning critters//
-
-    [SerializeField] public GameObject critter;
+    [SerializeField] public List<CritterObject> all_critters;
+    [SerializeField] public GameObject critter_obj;
 
     public void SpawnCritter(float x, float y)
     {
-        GameObject c = Instantiate(critter);
+        GameObject c = Instantiate(critter_obj);
+
+        //fill in all seralized information from a random critter
+        CritterObject c_o = all_critters[Random.Range(0, all_critters.Count)];
+
+        c.GetComponent<WildCritter>().critter_object = c_o;
+        c.GetComponent<WildCritter>().UpdateInfo();
 
         c.transform.SetParent(this.transform);
 

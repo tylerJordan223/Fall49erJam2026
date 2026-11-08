@@ -7,6 +7,8 @@ public class WildCritter : MonoBehaviour
 
     [Header("Objects")]
     [SerializeField] GameObject charge_bar;
+    [SerializeField] SpriteRenderer sr;
+    [SerializeField] public CritterObject critter_object;
 
     //private information
     private Vector3 movement_dir;
@@ -17,6 +19,12 @@ public class WildCritter : MonoBehaviour
         //at the beginning pick a direction and just start moving
         movement_dir = Random.onUnitCircle;
         charge_bar.transform.localScale = new Vector3(0f, charge_bar.transform.localScale.y, charge_bar.transform.localScale.z);
+    }
+
+    //function to update info when given a new critter object
+    public void UpdateInfo()
+    {
+        sr.sprite = critter_object.base_sprite;
     }
 
     public void CritterClick()

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9010134872083336074}
   - component: {fileID: 1652418278936474010}
   m_Layer: 7
-  m_Name: TestCritter
+  m_Name: wildCritter
   m_TagString: critter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +99,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WildCritter
   speed: 5
   charge_bar: {fileID: 2717798321068354067}
+  sr: {fileID: 5657893441609423753}
+  critter_object: {fileID: 0}
 --- !u!1 &2717798321068354067
 GameObject:
   m_ObjectHideFlags: 0
