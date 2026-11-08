@@ -5120,6 +5120,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3745529158208439791, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3745529158208439791, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3745529158208439791, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373971341785776473, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9375
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373971341785776473, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_Size.y
+      value: 0.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373971341785776473, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f50fb7668d1709f4aa81be97354a4541, type: 3}
+    - target: {fileID: 4373971341785776473, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4744807741596543766, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6684759224616798936, guid: 06dc9967fec788e4c92b52bf54de0fc2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -185.09
