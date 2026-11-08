@@ -1142,6 +1142,16 @@ namespace P_Input
                     ""interactions"": """",
                     ""initialStateCheck"": false,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""c1407875-ce5b-4f2e-b8b3-d0e82ad74bc2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -1230,6 +1240,17 @@ namespace P_Input
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Enter"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d034baee-9f15-4fca-bed0-ef844ab448e1"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1328,6 +1349,7 @@ namespace P_Input
             m_Overworld_Interact = m_Overworld.FindAction("Interact", throwIfNotFound: true);
             m_Overworld_Debug = m_Overworld.FindAction("Debug", throwIfNotFound: true);
             m_Overworld_Enter = m_Overworld.FindAction("Enter", throwIfNotFound: true);
+            m_Overworld_Click = m_Overworld.FindAction("Click", throwIfNotFound: true);
         }
 
         ~@PlayerInput()
@@ -1793,6 +1815,7 @@ namespace P_Input
         private readonly InputAction m_Overworld_Interact;
         private readonly InputAction m_Overworld_Debug;
         private readonly InputAction m_Overworld_Enter;
+        private readonly InputAction m_Overworld_Click;
         /// <summary>
         /// Provides access to input actions defined in input action map "Overworld".
         /// </summary>
@@ -1820,6 +1843,10 @@ namespace P_Input
             /// Provides access to the underlying input action "Overworld/Enter".
             /// </summary>
             public InputAction @Enter => m_Wrapper.m_Overworld_Enter;
+            /// <summary>
+            /// Provides access to the underlying input action "Overworld/Click".
+            /// </summary>
+            public InputAction @Click => m_Wrapper.m_Overworld_Click;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1858,6 +1885,9 @@ namespace P_Input
                 @Enter.started += instance.OnEnter;
                 @Enter.performed += instance.OnEnter;
                 @Enter.canceled += instance.OnEnter;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
             }
 
             /// <summary>
@@ -1881,6 +1911,9 @@ namespace P_Input
                 @Enter.started -= instance.OnEnter;
                 @Enter.performed -= instance.OnEnter;
                 @Enter.canceled -= instance.OnEnter;
+                @Click.started -= instance.OnClick;
+                @Click.performed -= instance.OnClick;
+                @Click.canceled -= instance.OnClick;
             }
 
             /// <summary>
@@ -2163,6 +2196,13 @@ namespace P_Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnEnter(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Click" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnClick(InputAction.CallbackContext context);
         }
     }
 }

@@ -1,3 +1,4 @@
+using P_Input;
 using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
@@ -29,6 +30,23 @@ public class WorldScript : MonoBehaviour
     private float timer;
     private bool active;
 
+    #region input
+    //controls
+    P_Input.PlayerInput input;
+
+    private void OnEnable()
+    {
+        input = new P_Input.PlayerInput();
+        input.Overworld.Click.performed += ClickAction;
+        input.Overworld.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Overworld.Disable();
+    }
+    #endregion input
+
     private void Update()
     {
         if (!active) return;
@@ -43,6 +61,30 @@ public class WorldScript : MonoBehaviour
         {
             StartCoroutine(DeactivateTown());
         }
+
+        //handle mouse control
+        if(Mouse.current != null && Mouse.current.leftButton.isPressed)
+        {
+            //perform a raycat through mouse to see if hitting critter
+            Ray ray = CameraController.instance.mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                //actually handle hit if its a critter
+                if (hit.collider.gameObject.CompareTag("critter"))
+                {
+                    hit.collider.GetComponent<WildCritter>().CritterClick();
+                }
+            }
+        }
+    }
+
+    //click function
+    public void ClickAction(InputAction.CallbackContext context)
+    {
+        //make sure not to run if not active
+        if (!active) return;
+
+
     }
 
     private void FixedUpdate()
