@@ -102,9 +102,6 @@ public class WorldScript : MonoBehaviour
         //pause for effect
         yield return new WaitForSeconds(1f);
 
-        //set town as finished
-        PlayerInfo.instance.active_town.interactable = false;
-
         //do the transition
         PlayerInfo.instance.pc.StartTownToPlayer();
     }

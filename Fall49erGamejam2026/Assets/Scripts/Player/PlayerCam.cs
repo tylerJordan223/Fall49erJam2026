@@ -31,6 +31,9 @@ public class PlayerCam : MonoBehaviour
     public float max_shake_x;
     private float shake_x;
 
+    [Header("extra")]
+    [SerializeField] GameObject visionEffect;
+
     #region input
     //controls
     //Make it so it removes your cursor when enabled
@@ -68,6 +71,8 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
+        Debug.DrawRay(PlayerInfo.instance.p_cam_obj.transform.position, (PlayerInfo.instance.p_cam_obj.transform.position + PlayerInfo.instance.p_cam_obj.transform.forward) * 10f, Color.pink);
+
         //cancel out of not allowed to control
         if (!PlayerInfo.instance.can_control) return;
 
@@ -298,5 +303,79 @@ public class PlayerCam : MonoBehaviour
         //disable the player
         PlayerInfo.instance.EnablePlayer();
         
+    }
+
+    //functions to transition between player and terrarium//
+    public void StartPlayerToTerrarium(InputAction.CallbackContext context)
+    {
+        //make sure its not already in town
+        if (!PlayerInfo.instance.can_control) return;
+
+        if (context.performed)
+        {
+            StartCoroutine(PlayerToTerrarium());
+        }
+    }
+
+    public void StartTerrariumToPlayer()
+    {
+        if (PlayerInfo.instance.active_town != null)
+        {
+            StartCoroutine(TerrariumToPlayer());
+        }
+    }
+
+    private IEnumerator PlayerToTerrarium()
+    {
+        //line up the vision effect and turn it on
+        visionEffect.SetActive(true);
+        visionEffect.transform.rotation = PlayerInfo.instance.p_cam_obj.transform.rotation;
+        visionEffect.transform.position = PlayerInfo.instance.p_cam_obj.transform.position;
+
+        //disable the player
+        PlayerInfo.instance.can_control = false;
+
+        //start the fadeout
+        CameraController.instance.FadeIn(0.5f);
+
+        //move the camera backwards into the player
+        Vector3 start = PlayerInfo.instance.p_cam_obj.transform.position;
+        Vector3 end = start - PlayerInfo.instance.p_cam_obj.transform.forward * 2f;
+        float timer = 0f;
+        while (PlayerInfo.instance.p_cam_obj.transform.position != end)
+        {
+            //lerp the camera towards the end position
+            PlayerInfo.instance.p_cam_obj.transform.position = Vector3.Lerp(start, end, timer);
+
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        //swap to town area
+        StartCoroutine(TerrariumScript.instance.ActivateTerrarium());
+    }
+
+    private IEnumerator TerrariumToPlayer()
+    {
+        //start the fadeout
+        CameraController.instance.FadeOut(0.5f);
+
+        //move the camera backwards into the player
+        Vector3 start = PlayerInfo.instance.p_cam_obj.transform.position;
+        Vector3 end = (PlayerInfo.instance.p_cam_obj.transform.forward - PlayerInfo.instance.p_cam_obj.transform.position) * 3f;
+        float timer = 0f;
+        while (PlayerInfo.instance.p_cam_obj.transform.position != end)
+        {
+            //lerp the camera towards the end position
+            PlayerInfo.instance.p_cam_obj.transform.position = Vector3.Lerp(start, end, timer);
+
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        //enable the player
+        PlayerInfo.instance.can_control = false;
     }
 }

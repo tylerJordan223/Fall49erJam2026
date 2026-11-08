@@ -1044,6 +1044,16 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "e8f1ff8e-6ef4-44ce-b26f-20cf7eded608",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -1121,6 +1131,46 @@
                     "processors": "",
                     "groups": "",
                     "action": "Debug",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3e0c67eb-d3e6-4b28-8023-9f9c2e9b1438",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Terrarium",
+            "id": "fade5f7d-1215-47c9-80fb-8a39872fa56a",
+            "actions": [
+                {
+                    "name": "Enter",
+                    "type": "Button",
+                    "id": "805fada0-7111-49bf-806a-4f64ddbc16cd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7fbb8ea7-9481-4eb4-b901-87023fa31cb7",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
