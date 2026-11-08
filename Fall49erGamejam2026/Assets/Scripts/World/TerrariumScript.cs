@@ -33,6 +33,9 @@ public class TerrariumScript : MonoBehaviour
 
     [Header("Critter Information")]
     public List<CritterObject> critters;
+    [SerializeField] public GameObject critter_spawn;
+    [SerializeField] public GameObject critter_holder;
+
 
     //private info
     private bool active;
@@ -147,7 +150,15 @@ public class TerrariumScript : MonoBehaviour
     //function used to add critters to the terrarium
     public void AddCritter(CritterObject co)
     {
+        //add it to the list
         critters.Add(co);
+
+        //spawn it in
+        GameObject c = Instantiate(critter_spawn);
+        c.transform.position = critter_holder.transform.position;
+        c.transform.SetParent(critter_holder.transform);
+        c.GetComponent<DomesticatedCritter>().critter_object = co;
+        c.GetComponent<DomesticatedCritter>().UpdateInfo();
     }
 
     //function to handle picking up a critter

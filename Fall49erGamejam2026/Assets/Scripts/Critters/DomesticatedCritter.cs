@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,7 @@ public class DomesticatedCritter : MonoBehaviour
 {
     [Header("Movement")]
     public float speed;
+    public float followSpeed;
     public bool held;
 
     [Header("Objects")]
@@ -12,11 +14,13 @@ public class DomesticatedCritter : MonoBehaviour
     [SerializeField] GameObject shadow;
     [SerializeField] public CritterObject critter_object;
     [SerializeField] public Collider col;
+    [SerializeField] public TextMeshPro nameplate;
 
     //private information
     private Vector3 movement_dir;
     private float caught_percent = 0;
     private Rigidbody rb;
+    private Vector3 spawnPoint;
 
     private void Start()
     {
@@ -24,19 +28,23 @@ public class DomesticatedCritter : MonoBehaviour
         movement_dir = Random.onUnitCircle;
         held = false;
         rb = GetComponent<Rigidbody>();
+        spawnPoint = transform.position;
     }
 
     //function to update info when given a new critter object
     public void UpdateInfo()
     {
         sr.sprite = critter_object.base_sprite;
+        nameplate.text = critter_object.c_name;
     }
 
-    //function to move to being held
-    public void CritterClick()
+    //function to respawn
+    public void Respawn()
     {
-
+        transform.position = spawnPoint;
     }
+
+
     private void Update()
     {
 
@@ -53,7 +61,12 @@ public class DomesticatedCritter : MonoBehaviour
             s_pos.y = hit.point.y + 0.01f;
             shadow.transform.position = s_pos;
         }
-    
+        
+        //respawn if necssary
+        if(transform.localPosition.y < -30f)
+        {
+            Respawn();
+        }
     }
         
     private void FixedUpdate()
@@ -81,18 +94,23 @@ public class DomesticatedCritter : MonoBehaviour
                 //get the point in 3d space where this is
                 Vector3 target = mouse_ray.GetPoint(enterDistance);
 
+                //calculate distance from spot to target
+                Vector3 distance = target - transform.position;
+                distance.y += col.bounds.size.y/2;
+                distance.z += col.bounds.size.z/2;
+
+                //use velocity to push towards the cursor
+                rb.linearVelocity = distance * followSpeed;
+
                 //update the position
-                Vector3 pos = transform.position;
-                //offset to middle of collider
-                pos.y = target.y + col.bounds.size.y/2;
-                pos.z = target.z + col.bounds.size.x/2;
-                transform.position = pos;
+                //rb.MovePosition(new Vector3(transform.position.x, target.y + col.bounds.size.y / 2, target.z + col.bounds.size.x / 2));
             }
 
             //disable the hold
             if (!Mouse.current.leftButton.IsPressed())
             {
                 held = false;
+                rb.angularVelocity = Vector3.zero;
             }    
         }
         else
@@ -106,6 +124,13 @@ public class DomesticatedCritter : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        //make it so the text always faces player
+        nameplate.transform.LookAt(CameraController.instance.mainCamera.transform);
+        nameplate.transform.Rotate(Vector3.up, 180f);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         //disable the hold if this is the case
@@ -113,6 +138,12 @@ public class DomesticatedCritter : MonoBehaviour
         {
             held = false;
             return;
+        }
+
+        if(collision.transform.CompareTag("Ground"))
+        {
+            //kill velocity
+            rb.linearVelocity = Vector3.zero;
         }
 
         //just bounce around
