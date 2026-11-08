@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5fdd3d10104d4942a3dcfbeaddbd222, type: 3}
-  m_Name: CritterObject
+  m_Name: theColonel
   m_EditorClassIdentifier: Assembly-CSharp::CritterObject
-  c_name: zebtra
-  base_sprite: {fileID: -3604684315684801434, guid: aad4dcb270e711c46af184247ca7ef72, type: 3}
-  falling_sprite: {fileID: -3604684315684801434, guid: 3f43566c795bd48449ea223d0dff265c, type: 3}
+  c_name: The Colonel
+  base_sprite: {fileID: -3604684315684801434, guid: db4cf77884a46e44d906a8d43a05ec1e, type: 3}
+  falling_sprite: {fileID: -3604684315684801434, guid: 872154dfc4f80cb44ac9fa5a21258266, type: 3}
   shiny: 0
   collected: 0
   dialogue: []
