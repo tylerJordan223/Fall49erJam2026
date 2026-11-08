@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CritterObject
   c_name: Sqi-Guy
   base_sprite: {fileID: -3604684315684801434, guid: 3b9033480df3f1141bb66a2a16a742ed, type: 3}
-  falling_sprite: {fileID: 0}
+  falling_sprite: {fileID: -3604684315684801434, guid: bfad6ae1204134646bd6bbc484c0a833, type: 3}
   shiny: 0
   collected: 0
   dialogue: []

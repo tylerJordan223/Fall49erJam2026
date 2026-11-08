@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5fdd3d10104d4942a3dcfbeaddbd222, type: 3}
   m_Name: Pesto
   m_EditorClassIdentifier: Assembly-CSharp::CritterObject
-  c_name: 
-  base_sprite: {fileID: 0}
-  falling_sprite: {fileID: 0}
+  c_name: Pesto
+  base_sprite: {fileID: -3604684315684801434, guid: bcd9f2182ba5312439cee1dc71c79521, type: 3}
+  falling_sprite: {fileID: -3604684315684801434, guid: 0ae61648f1a4dcf41a8ccd2164cc95ca, type: 3}
   shiny: 0
   collected: 0
   dialogue: []
