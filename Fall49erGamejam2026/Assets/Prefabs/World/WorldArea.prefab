@@ -981,4 +981,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0494bf1eff5830e449e29b44ec788e2c, type: 2}
   - {fileID: 11400000, guid: 61b1a8251c413874eb9d4d70ecd5e0ac, type: 2}
   - {fileID: 11400000, guid: 220f5863d8a82464a93504a724075879, type: 2}
+  - {fileID: 11400000, guid: 9f1e35ec830575a4e8eebbe45d4a0384, type: 2}
   critter_obj: {fileID: 1967104426724768286, guid: 1b988bc08289c74438e035b284138702, type: 3}
