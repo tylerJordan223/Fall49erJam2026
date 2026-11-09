@@ -14,4 +14,9 @@ public class TitleScript : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
+    public void PlayStartSFX()
+    {
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.startGame);
+    }
 }

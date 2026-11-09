@@ -36,6 +36,7 @@ public class WildCritter : MonoBehaviour
         {
             //this means its caught, add its object to the terrarium
             TerrariumScript.instance.AddCritter(critter_object);
+            AudioManager.instance.PlaySingleSFX(AudioManager.instance.pop_guy);
             DestroyImmediate(this.gameObject);
         }
     }

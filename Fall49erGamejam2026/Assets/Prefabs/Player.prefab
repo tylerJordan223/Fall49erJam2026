@@ -191,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCam
   sens_X: 3
   sens_Y: 30
-  bob_threshold: 1
+  bob_threshold: 0.75
   bob_speed: 1
   height_offset: 0
   max_shake_y: 0.25
@@ -475,7 +475,7 @@ SpriteRenderer:
   m_Size: {x: 6.3, y: 5.01}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
 --- !u!1 &8364293949864375325

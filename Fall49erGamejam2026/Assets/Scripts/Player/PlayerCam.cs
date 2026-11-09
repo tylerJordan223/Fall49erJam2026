@@ -176,6 +176,7 @@ public class PlayerCam : MonoBehaviour
 
         //shake camera
         StartCoroutine(CameraShake(0.75f));
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.rob_footstep);
 
         //step two is to go back to regular height
         while (height_offset < 0f)
@@ -257,6 +258,7 @@ public class PlayerCam : MonoBehaviour
 
         //lower the camera for a period of time
         float y_offset = PlayerInfo.instance.active_town.cam.transform.position.y - 3f;
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.rob_lean);
         while (PlayerInfo.instance.active_town.cam.transform.position.y > y_offset)
         {
             //lower the camera
@@ -280,6 +282,7 @@ public class PlayerCam : MonoBehaviour
 
         //raise the camera for a period of time
         float y_offset = PlayerInfo.instance.active_town.cam.transform.position.y + 3f;
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.rob_unlean);
         while (PlayerInfo.instance.active_town.cam.transform.position.y < y_offset)
         {
             //lower the camera
@@ -336,6 +339,7 @@ public class PlayerCam : MonoBehaviour
         CameraController.instance.FadeIn(0.5f);
 
         //move the camera backwards into the player
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.rob_transition);
         Vector3 start = PlayerInfo.instance.p_cam_obj.transform.position;
         Vector3 end = start - PlayerInfo.instance.p_cam_obj.transform.forward * 2f;
         float timer = 0f;
@@ -363,6 +367,7 @@ public class PlayerCam : MonoBehaviour
         CameraController.instance.FadeOut(0.5f);
 
         //move the camera backwards into the player
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.rob_transition);
         Vector3 start = PlayerInfo.instance.p_cam_obj.transform.position;
         Vector3 end = start + PlayerInfo.instance.p_cam_obj.transform.forward * 2f;
         float timer = 0f;

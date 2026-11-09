@@ -179,8 +179,14 @@ public class TerrariumScript : MonoBehaviour
             if (hit.collider.CompareTag("critter"))
             {
                 hit.collider.transform.parent.GetComponent<DomesticatedCritter>().held = true;
+                AudioManager.instance.PlaySingleSFX(AudioManager.instance.pop_guy);
                 break;
             }
         }
+    }
+    
+    public void PlayLeaveSFX()
+    {
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.leave_terrarium);
     }
 }

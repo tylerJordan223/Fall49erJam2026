@@ -37,6 +37,20 @@ public class WorldScript : MonoBehaviour
     private float timer;
     private bool active;
 
+    [Header("Audio")]
+    [SerializeField] public AudioSource clock;
+    [SerializeField] public AudioClip tick;
+    [SerializeField] public AudioSource vacuum;
+    [SerializeField] public AudioClip suck;
+
+    private void Start()
+    {
+        vacuum.clip = suck;
+        vacuum.volume = AudioManager.instance.sfx_volume;
+        clock.clip = tick;
+        clock.volume = AudioManager.instance.sfx_volume;
+    }
+
     private void Update()
     {
         if (!active) return;
@@ -55,6 +69,11 @@ public class WorldScript : MonoBehaviour
         //handle mouse control
         if(Mouse.current != null && Mouse.current.leftButton.isPressed)
         {
+            if(!vacuum.isPlaying)
+            {
+                vacuum.Play();
+            }
+
             //perform a raycat through mouse to see if hitting critter
             Ray ray = CameraController.instance.mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit))
@@ -64,6 +83,13 @@ public class WorldScript : MonoBehaviour
                 {
                     hit.collider.GetComponent<WildCritter>().CritterClick();
                 }
+            }
+        }
+        else
+        {
+            if(vacuum.isPlaying)
+            {
+                vacuum.Stop();
             }
         }
     }
@@ -125,11 +151,18 @@ public class WorldScript : MonoBehaviour
 
         //turn on the town
         active = true;
+
+        //play sfx
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.spotlight);
+        clock.Play();
     }
 
     //this will undo everything
     public IEnumerator DeactivateTown()
     {
+        clock.Stop();
+        vacuum.Stop();
+
         //turn off the town
         active = false;
 
@@ -140,6 +173,8 @@ public class WorldScript : MonoBehaviour
         CameraController.instance.fade_canvas.gameObject.SetActive(true);
         CameraController.instance.flashlight_canvas.gameObject.SetActive(false);
         CameraController.instance.town_canvas.gameObject.SetActive(false);
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.spotlight);
+        AudioManager.instance.PlaySingleSFX(AudioManager.instance.spotlight);
 
         //set the camera to town cam
         CameraController.instance.CameraTransition(PlayerInfo.instance.active_town.cam);
