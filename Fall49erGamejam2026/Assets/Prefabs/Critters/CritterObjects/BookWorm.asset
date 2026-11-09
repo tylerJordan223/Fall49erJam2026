@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5fdd3d10104d4942a3dcfbeaddbd222, type: 3}
+  m_Name: BookWorm
+  m_EditorClassIdentifier: Assembly-CSharp::CritterObject
+  c_name: BookWorm
+  base_sprite: {fileID: -3604684315684801434, guid: ac1757373554a6e44821b6ddb97e515b, type: 3}
+  falling_sprite: {fileID: -3604684315684801434, guid: 1342c8df8590f5c4e9fa366b5d5359c0, type: 3}
+  shiny: 0
+  collected: 0
+  dialogue: []
+  rarity: 0
+  anim: {fileID: 0}
+  walking: {fileID: 0}
+  talking: {fileID: 0}
+  falling: {fileID: 0}
